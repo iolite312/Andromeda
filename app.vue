@@ -12,15 +12,17 @@
 	useHead({
 		title: 'Andromeda - Home',
 	})
+
+	const config = useRuntimeConfig();
+
 	let player : SpotifyPlayer;
 
-	CreateSpotify("Token here")
+	CreateSpotify(config.public.spotifySecret)
 		.then((spotPlayer) => {
 			player = spotPlayer
-			console.log(spotPlayer)
 		})
 		.catch((err) => {
-			console.error(err)
+			console.error(err)			
 		})
 </script>
 
