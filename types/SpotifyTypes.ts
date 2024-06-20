@@ -18,7 +18,7 @@ interface SpotifyWebPlaybackSDKReady {
 export interface SpotifyPlayer {
     connect(): Promise<boolean>;
     disconnect(): void;
-    getCurrentState(): Promise<PlaybackState | null>;
+    getCurrentState(): Promise<Spotify.PlaybackState | null>;
     getVolume(): Promise<number>;
     setVolume(volume: number): Promise<void>;
     nextTrack(): Promise<void>;
@@ -40,8 +40,8 @@ export interface SpotifyPlayer {
 type ErrorTypes = "account_error" | "authentication_error" | "initialization_error" | "playback_error";
 
 type ErrorListener = (err: Error) => void;
-type PlaybackInstanceListener = (inst: WebPlaybackInstance) => void;
-type PlaybackStateListener = (s: PlaybackState) => void;
+type PlaybackInstanceListener = (inst: Spotify.WebPlaybackInstance) => void;
+type PlaybackStateListener = (s: Spotify.PlaybackState) => void;
 type EmptyListener = () => void;
 type AddListenerFn =
     & ((event: "ready" | "not_ready", cb: PlaybackInstanceListener) => void)
@@ -49,141 +49,143 @@ type AddListenerFn =
     & ((event: "player_state_changed", cb: PlaybackStateListener) => void)
     & ((event: ErrorTypes, cb: ErrorListener) => void);
 
-interface WebPlaybackInstance {
-    device_id: string;
-}
-
-interface PlaybackState {
-    context: PlaybackContext;
-    disallows: PlaybackDisallows;
-    duration: number;
-    paused: boolean;
-    position: number;
-    loading: boolean;
-    timestamp: number;
-    /**
+export declare namespace Spotify {
+    interface WebPlaybackInstance {
+        device_id: string;
+    }
     
-        * 0: NO_REPEAT
+    interface PlaybackState {
+        context: PlaybackContext;
+        disallows: PlaybackDisallows;
+        duration: number;
+        paused: boolean;
+        position: number;
+        loading: boolean;
+        timestamp: number;
+        /**
+        
+            * 0: NO_REPEAT
+        
+            * 1: ONCE_REPEAT
+        
+            * 2: FULL_REPEAT
+        
+            */
+        repeat_mode: 0 | 1 | 2;
+        shuffle: boolean;
+        restrictions: PlaybackRestrictions;
+        track_window: PlaybackTrackWindow;
+        playback_id: string;
+        playback_quality: string;
+        playback_features: {
+            hifi_status: string;
+        };
+    }
     
-        * 1: ONCE_REPEAT
+    interface PlaybackTrackWindow {
+        current_track: Track;
+        previous_tracks: Track[];
+        next_tracks: Track[];
+    }
     
-        * 2: FULL_REPEAT
-    
-        */
-    repeat_mode: 0 | 1 | 2;
-    shuffle: boolean;
-    restrictions: PlaybackRestrictions;
-    track_window: PlaybackTrackWindow;
-    playback_id: string;
-    playback_quality: string;
-    playback_features: {
-        hifi_status: string;
-    };
-}
-
-interface PlaybackTrackWindow {
-    current_track: Track;
-    previous_tracks: Track[];
-    next_tracks: Track[];
-}
-
-interface Track {
-    album: Album;
-    artists: Entity[];
-    duration_ms: number;
-    id: string | null;
-    is_playable: boolean;
-    name: string;
-    uid: string;
-    uri: string;
-    media_type: "audio" | "video";
-    type: "track" | "episode" | "ad";
-    track_type: "audio" | "video";
-    linked_from: {
-        uri: string | null;
+    interface Track {
+        album: Album;
+        artists: Entity[];
+        duration_ms: number;
         id: string | null;
-    };
-}
-
-interface PlaybackContext {
-    metadata: PlaybackContextMetadata | null;
-    uri: string | null;
-}
-
-interface PlaybackContextMetadata extends Entity {
-    current_item: PlaybackContextTrack;
-    next_items: PlaybackContextTrack[];
-    previous_items: PlaybackContextTrack[];
-    restrictions: PlaybackContextRestrictions;
-    options: {
-        repeat_mode: string;
-        shuffled: boolean;
-    };
-}
-
-interface PlaybackContextRestrictions {
-    pause: string[];
-    resume: string[];
-    seek: string[];
-    skip_next: string[];
-    skip_prev: string[];
-    toggle_repeat_context: string[];
-    toggle_repeat_track: string[];
-    toggle_shuffle: string[];
-    peek_next: string[];
-    peek_prev: string[];
-}
-
-interface PlaybackContextTrack extends Entity {
-    artists: Entity[];
-    content_type: string;
-    estimated_duration: number;
-    group: Entity;
-    images: Image[];
-    uid: string;
-}
-
-interface Entity {
-    name: string;
-    uri: string;
-    url: string;
-}
-
-interface Album {
-    name: string;
-    uri: string;
-    images: Image[];
-}
-
-interface Image {
-    height?: number | null | undefined;
-    url: string;
-    size?: string | null | undefined;
-    width?: number | null | undefined;
-}
-
-interface PlaybackDisallows {
-    pausing?: boolean;
-    peeking_next?: boolean;
-    peeking_prev?: boolean;
-    resuming?: boolean;
-    seeking?: boolean;
-    skipping_next?: boolean;
-    skipping_prev?: boolean;
-    toggling_repeat_context?: boolean;
-    toggling_repeat_track?: boolean;
-    toggling_shuffle?: boolean;
-}
-
-interface PlaybackRestrictions {
-    disallow_pausing_reasons?: string[];
-    disallow_peeking_next_reasons?: string[];
-    disallow_peeking_prev_reasons?: string[];
-    disallow_resuming_reasons?: string[];
-    disallow_seeking_reasons?: string[];
-    disallow_skipping_next_reasons?: string[];
-    disallow_skipping_prev_reasons?: string[];
-    disallow_toggling_repeat_context_reasons?: string[];
-    disallow_toggling_repeat_track_reasons?: string[];
-    disallow_toggling_shuffle_reasons?: string[];
+        is_playable: boolean;
+        name: string;
+        uid: string;
+        uri: string;
+        media_type: "audio" | "video";
+        type: "track" | "episode" | "ad";
+        track_type: "audio" | "video";
+        linked_from: {
+            uri: string | null;
+            id: string | null;
+        };
+    }
+    
+    interface PlaybackContext {
+        metadata: PlaybackContextMetadata | null;
+        uri: string | null;
+    }
+    
+    interface PlaybackContextMetadata extends Entity {
+        current_item: PlaybackContextTrack;
+        next_items: PlaybackContextTrack[];
+        previous_items: PlaybackContextTrack[];
+        restrictions: PlaybackContextRestrictions;
+        options: {
+            repeat_mode: string;
+            shuffled: boolean;
+        };
+    }
+    
+    interface PlaybackContextRestrictions {
+        pause: string[];
+        resume: string[];
+        seek: string[];
+        skip_next: string[];
+        skip_prev: string[];
+        toggle_repeat_context: string[];
+        toggle_repeat_track: string[];
+        toggle_shuffle: string[];
+        peek_next: string[];
+        peek_prev: string[];
+    }
+    
+    interface PlaybackContextTrack extends Entity {
+        artists: Entity[];
+        content_type: string;
+        estimated_duration: number;
+        group: Entity;
+        images: Image[];
+        uid: string;
+    }
+    
+    interface Entity {
+        name: string;
+        uri: string;
+        url: string;
+    }
+    
+    interface Album {
+        name: string;
+        uri: string;
+        images: Image[];
+    }
+    
+    interface Image {
+        height?: number | null | undefined;
+        url: string;
+        size?: string | null | undefined;
+        width?: number | null | undefined;
+    }
+    
+    interface PlaybackDisallows {
+        pausing?: boolean;
+        peeking_next?: boolean;
+        peeking_prev?: boolean;
+        resuming?: boolean;
+        seeking?: boolean;
+        skipping_next?: boolean;
+        skipping_prev?: boolean;
+        toggling_repeat_context?: boolean;
+        toggling_repeat_track?: boolean;
+        toggling_shuffle?: boolean;
+    }
+    
+    interface PlaybackRestrictions {
+        disallow_pausing_reasons?: string[];
+        disallow_peeking_next_reasons?: string[];
+        disallow_peeking_prev_reasons?: string[];
+        disallow_resuming_reasons?: string[];
+        disallow_seeking_reasons?: string[];
+        disallow_skipping_next_reasons?: string[];
+        disallow_skipping_prev_reasons?: string[];
+        disallow_toggling_repeat_context_reasons?: string[];
+        disallow_toggling_repeat_track_reasons?: string[];
+        disallow_toggling_shuffle_reasons?: string[];
+    }
 }
