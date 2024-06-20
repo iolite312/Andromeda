@@ -1,2 +1,1 @@
-export * from './spotifyPlayBack';
-export * from './test';
+export * from './SpotifyTypes';
