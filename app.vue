@@ -1,5 +1,8 @@
 <template>
-	<div>
+	<div v-if="accessToken == null && refreshToken == null">
+		<Auth />
+	</div>
+	<div v-else>
 		<button @click="() => player.togglePlay()">Toggle play</button>
 		<button @click="() => player.previousTrack()">Previous</button>
 		<button @click="() => player.nextTrack()">Next</button>
@@ -19,22 +22,24 @@
 		title: 'Andromeda - Home',
 	})
 
-	const config = useRuntimeConfig();
+	const accessToken = localStorage.getItem('accessToken')
+	const refreshToken = localStorage.getItem('refreshToken')
 
 	let player : SpotifyPlayer;
 
-	
 	let playerState = ref<Spotify.PlaybackState>()
 
 	let track_window = ref<Spotify.PlaybackTrackWindow | undefined>(playerState.value?.track_window)
 	
-	CreateSpotify(config.public.spotifySecret)
-		.then((spotPlayer) => {
-			player = spotPlayer
-		})
-		.catch((err) => {
-			console.error(err)			
-		})
+	if (accessToken != null) {
+		CreateSpotify(accessToken as string)
+			.then((spotPlayer) => {
+				player = spotPlayer
+			})
+			.catch((err) => {
+				console.error(err)			
+			})
+	}
 	function onStateChange() {
 		player.addListener('player_state_changed', (state) => {
 			playerState.value = state
@@ -42,7 +47,7 @@
 			console.log(track_window.value)
 		})
 	}
-	
+
 	onMounted(() => {
 		setTimeout(() => {
 			onStateChange()
