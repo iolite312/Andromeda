@@ -7,7 +7,8 @@ export default defineNuxtConfig({
 			title: 'Andromeda',
 			script: [
 				{
-					src: 'https://sdk.scdn.co/spotify-player.js'
+					src: 'https://sdk.scdn.co/spotify-player.js',
+					async: true
 				}
 			]
 		},
