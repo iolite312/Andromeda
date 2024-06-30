@@ -8,7 +8,7 @@
 // This logic will need to be moved eventually to the correct component/composable
 const config = useRuntimeConfig();
 function clearUrl() {
-    window.location.assign("http://localhost:3001");
+    window.location.assign("http://localhost:3000");
 }
 
 onMounted(async () => {
@@ -16,10 +16,10 @@ onMounted(async () => {
     const code = params.get("code");
 
     if ((localStorage.getItem("accessToken") == null || localStorage.getItem("accessToken") == undefined) && code == null) {
-        await redirectToAuthCodeFlow(config.public.spotifyClientId);
+        await redirectToAuthCodeFlow(config.public.clientId);
     } else {
         if (localStorage.getItem("accessToken") == null || localStorage.getItem("accessToken") == undefined) {
-            const { access_token, refresh_token } = await getAccessToken(config.public.spotifyClientId, code!);
+            const { access_token, refresh_token } = await getAccessToken(config.public.clientId, code!);
             localStorage.setItem("accessToken", access_token);
             localStorage.setItem("refreshToken", refresh_token);
         }
