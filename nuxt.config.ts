@@ -13,7 +13,8 @@ export default defineNuxtConfig({
 	},
 	runtimeConfig: {
 		public: {
-			spotifySecret: proces.env.SPOTIFY_SECRET || ''
+			spotifyClientId: process.env.SPOTIFY_CLIENT_ID,
+			url: process.env.BASE_URL || 'http://localhost:3000'
 		}
 	},
 	ssr: false
