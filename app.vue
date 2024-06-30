@@ -25,8 +25,8 @@
 		title: 'Andromeda - Home',
 	})
 
-	const accessToken = localStorage.getItem('accessToken')
-	const refreshToken = localStorage.getItem('refreshToken')
+	let accessToken = localStorage.getItem('accessToken')
+	let refreshToken = localStorage.getItem('refreshToken')
 
 	let player : SpotifyPlayer;
 
@@ -50,6 +50,15 @@
 		})
 	}
 	function insertNewToken() {
+		refreshToken = localStorage.getItem('refreshToken')
+
+		GetNewToken(refreshToken as string, config.public.clientId).then((response) => {
+			localStorage.setItem('accessToken', response.access_token)
+			localStorage.setItem('refreshToken', response.refresh_token)
+		})
+
+		accessToken = localStorage.getItem('accessToken')
+		
 		CreateSpotify(accessToken as string, config.public.clientName)
 			.then((spotPlayer) => {
 				player = spotPlayer
@@ -62,7 +71,7 @@
 	onMounted(() => {
 		setTimeout(() => {
 			onStateChange()
-		}, 1000);
+		}, 2000);
 	})
 </script>
 
