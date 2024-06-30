@@ -188,4 +188,11 @@ export declare namespace Spotify {
         disallow_toggling_repeat_track_reasons?: string[];
         disallow_toggling_shuffle_reasons?: string[];
     }
+    interface Token {
+        access_token: string;
+        token_type: "refresh_token";
+        expires_in: number;
+        refresh_token: string;
+        scope: string;
+    }
 }
