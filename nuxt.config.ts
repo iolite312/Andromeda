@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 	},
 	runtimeConfig: {
 		public: {
-			spotifySecret: process.env.SPOTIFY_SECRET || ''
+			spotifySecret: proces.env.SPOTIFY_SECRET || ''
 		}
 	},
 	ssr: false
