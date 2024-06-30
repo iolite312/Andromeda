@@ -12,11 +12,14 @@
 			<p>Previous: {{ track_window?.previous_tracks[track_window?.previous_tracks.length - 1]?.name || 'No track playing' }}</p>
 			<img :src="track_window?.current_track?.album?.images[0]?.url" alt="Image of album" :height="track_window?.current_track?.album?.images[0]?.height || 0" :width="track_window?.current_track?.album?.images[0]?.width || 0">
 		</div>
+		<button @click="insertNewToken()">Insert Token</button>
 	</div>
 </template>
 
 <script setup lang="ts">
 	import { type Spotify, type SpotifyPlayer } from './types';
+
+	const config = useRuntimeConfig();
 
 	useHead({
 		title: 'Andromeda - Home',
@@ -32,7 +35,7 @@
 	let track_window = ref<Spotify.PlaybackTrackWindow | undefined>(playerState.value?.track_window)
 	
 	if (accessToken != null) {
-		CreateSpotify(accessToken as string)
+		CreateSpotify(accessToken as string, config.public.clientName)
 			.then((spotPlayer) => {
 				player = spotPlayer
 			})
@@ -44,8 +47,16 @@
 		player.addListener('player_state_changed', (state) => {
 			playerState.value = state
 			track_window.value = playerState.value?.track_window
-			console.log(track_window.value)
 		})
+	}
+	function insertNewToken() {
+		CreateSpotify(accessToken as string, config.public.clientName)
+			.then((spotPlayer) => {
+				player = spotPlayer
+			})
+			.catch((err) => {
+				console.error(err)			
+			})
 	}
 
 	onMounted(() => {

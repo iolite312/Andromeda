@@ -14,6 +14,8 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			clientId: process.env.SPOTIFY_CLIENT_ID,
+			url: process.env.BASE_URL || 'http://localhost:3000',
+			clientName: process.env.SPOTIFY_CLIENT_NAME || 'Andromeda'
 		}
 	},
 	ssr: false

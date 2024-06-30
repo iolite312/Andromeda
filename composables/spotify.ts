@@ -1,10 +1,10 @@
 import type { Spotify, SpotifyPlayer } from "~/types";
 
-export const CreateSpotify = (token: string): Promise<SpotifyPlayer> => {
+export const CreateSpotify = (token: string, name: string): Promise<SpotifyPlayer> => {
     return new Promise((resolve, reject) => {
         window.onSpotifyWebPlaybackSDKReady = () => {
             const player = new window.Spotify.Player({
-                name: 'Web Playback SDK Quick Start Player',
+                name: name,
                 getOAuthToken: cb => { cb(token); },
                 volume: 1
             });
