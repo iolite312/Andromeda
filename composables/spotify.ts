@@ -1,7 +1,7 @@
-import type { Spotify, SpotifyPlayer } from "~/types";
+import type { SpotifyPlayer } from "~/types";
 
 export const CreateSpotify = (token: string, name: string): Promise<SpotifyPlayer> => {
-    
+
     const store = setStore();
     
     return new Promise((resolve, reject) => {
@@ -66,25 +66,7 @@ export const CreateSpotify = (token: string, name: string): Promise<SpotifyPlaye
         }
     })
 }
-export const GetNewToken = async (refreshToken: string, client_id: string): Promise<Spotify.Token> => {
-    const { data } = await useFetch<Spotify.Token>("https://accounts.spotify.com/api/token", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: new URLSearchParams({
-            "client_id": client_id,
-            "grant_type": "refresh_token",
-            "refresh_token": refreshToken
-        })
-    });
 
-    if (data.value == null) {
-        throw new Error("No token found");
-    }
-
-    return data.value;
-}
 function setStore () {
     const store = useSpotifyStore();
     return store

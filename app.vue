@@ -24,9 +24,10 @@
 	const config = useRuntimeConfig();
 
 	const playerStore = useSpotifyStore();
+	const authStore = useAuthStore();
 
-	let accessToken = localStorage.getItem('accessToken')
-	let refreshToken = localStorage.getItem('refreshToken')
+	let accessToken = authStore.accessToken
+	let refreshToken = authStore.refreshToken
 
 	let player = computed(() => playerStore.player);
 
@@ -38,26 +39,24 @@
 				playerStore.setPlayer(spotPlayer)
 			})
 			.catch((err) => {
-				console.error(err)			
+				console.error(err)
 			})
 	}
 
 	function insertNewToken() {
-		refreshToken = localStorage.getItem('refreshToken')
+		refreshToken = authStore.refreshToken
+		console.log(refreshToken)
 
-		GetNewToken(refreshToken as string, config.public.clientId).then((response) => {
-			localStorage.setItem('accessToken', response.access_token)
-			localStorage.setItem('refreshToken', response.refresh_token)
-		})
+		authStore.GetNewToken(config.public.clientId)
 
-		accessToken = localStorage.getItem('accessToken')
+		accessToken = authStore.accessToken
 		
 		CreateSpotify(accessToken as string, config.public.clientName)
 			.then((spotPlayer) => {
 				playerStore.setPlayer(spotPlayer)
 			})
 			.catch((err) => {
-				console.error(err)			
+				console.error(err)
 			})
 	}
 </script>
