@@ -1,6 +1,9 @@
 import type { Spotify, SpotifyPlayer } from "~/types";
 
 export const CreateSpotify = (token: string, name: string): Promise<SpotifyPlayer> => {
+    
+    const store = setStore();
+    
     return new Promise((resolve, reject) => {
         window.onSpotifyWebPlaybackSDKReady = () => {
             const player = new window.Spotify.Player({
@@ -55,6 +58,11 @@ export const CreateSpotify = (token: string, name: string): Promise<SpotifyPlaye
                 console.error(message);
                 reject(message);
             });
+
+            player.addListener('player_state_changed', (state) => {
+                if (state == null) return
+                store.setPlaybackState(state)
+            })
         }
     })
 }
@@ -76,4 +84,8 @@ export const GetNewToken = async (refreshToken: string, client_id: string): Prom
     }
 
     return data.value;
+}
+function setStore () {
+    const store = useSpotifyStore();
+    return store
 }
