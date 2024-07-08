@@ -14,10 +14,11 @@
     document.body.appendChild(script);
     // end of temp solution
 
-	let accessToken = authStore.accessToken
+	let accessToken = computed(() => authStore.accessToken)
+	let expireDate = computed(() => authStore.expireDate)
 
-    if (accessToken != null) {
-		CreateSpotify(accessToken, config.public.clientName)
+	if (accessToken.value != null) {
+		CreateSpotify(accessToken.value, config.public.clientName)
 			.then((spotPlayer) => {
 				playerStore.setPlayer(spotPlayer)
 			})
@@ -28,7 +29,7 @@
 
 	function insertNewToken() {
 		authStore.GetNewToken(config.public.clientId)
-		
+
 		CreateSpotify(authStore.accessToken as string, config.public.clientName)
 			.then((spotPlayer) => {
 				playerStore.setPlayer(spotPlayer)
@@ -40,13 +41,13 @@
 
 	onMounted(() => {
 		setInterval(() => {
-			if (new Date(authStore.expireDate).getTime() < Date.now() || authStore.expireDate == null) {
+			if (new Date(expireDate.value).getTime() < Date.now() || expireDate.value == null) {				
 				insertNewToken()
 			}
 		}, 1750000)
 	})
 	onBeforeMount(() => {
-		if (new Date(authStore.expireDate).getTime() < Date.now() || authStore.expireDate == null) {
+		if (new Date(expireDate.value).getTime() < Date.now() || expireDate.value == null) {
 			authStore.GetNewToken(config.public.clientId)
 		}
 	})
