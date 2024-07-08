@@ -11,7 +11,6 @@
 			<p>Previous: {{ track_window?.previous_tracks[track_window?.previous_tracks.length - 1]?.name || 'No track playing' }}</p>
 			<img :src="track_window?.current_track?.album?.images[0]?.url" alt="Image of album" :height="track_window?.current_track?.album?.images[0]?.height || 0" :width="track_window?.current_track?.album?.images[0]?.width || 0">
 		</div>
-		<button @click="insertNewToken()">Insert Token</button>
 	</div>
 </template>
 
@@ -44,14 +43,9 @@
 	}
 
 	function insertNewToken() {
-		refreshToken = authStore.refreshToken
-		console.log(refreshToken)
-
 		authStore.GetNewToken(config.public.clientId)
-
-		accessToken = authStore.accessToken
 		
-		CreateSpotify(accessToken as string, config.public.clientName)
+		CreateSpotify(authStore.accessToken as string, config.public.clientName)
 			.then((spotPlayer) => {
 				playerStore.setPlayer(spotPlayer)
 			})
@@ -59,6 +53,13 @@
 				console.error(err)
 			})
 	}
+	onMounted(() => {
+		setInterval(() => {
+			if (new Date(authStore.expireDate).getTime() < Date.now() || authStore.expireDate == null) {
+				insertNewToken()
+			}
+		}, 1750000)
+	})
 	onBeforeMount(() => {
 		if (new Date(authStore.expireDate).getTime() < Date.now() || authStore.expireDate == null) {
 			authStore.GetNewToken(config.public.clientId)
