@@ -1,5 +1,7 @@
 <template>
-    <p>{{ data?.name }}, Artist: {{ data?.artists[0].name }}, track count: {{ data?.total_tracks }}</p> <button @click="playAlbum()">Play</button>
+    <NuxtLink to="/">Home</NuxtLink>
+    <button @click="playAlbum()">Play</button>
+    <p>{{ data?.name }}, Artist: {{ data?.artists[0].name }}, track count: {{ data?.total_tracks }}</p>
     <div v-for="item in data?.tracks.items">
         <p>{{ item.name }} Artist: 
             <span v-if="item.artists.length === 1">{{ item.artists[0].name }}</span>

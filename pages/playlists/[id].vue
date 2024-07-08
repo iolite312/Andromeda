@@ -1,5 +1,6 @@
 <template>
     <button @click="playPlaylist()">Play</button>
+    <NuxtLink to="/">Home</NuxtLink>
     <div v-for="item in data?.tracks.items">
         <p>{{ item.track.name }} Artist: 
             <span v-if="item.track.artists.length === 1">{{ item.track.artists[0].name }}</span>
