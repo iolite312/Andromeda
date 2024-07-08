@@ -1,5 +1,5 @@
 <template>
-    <p>{{ data?.name }}, Artist: {{ data?.artists[0].name }}, track count: {{ data?.total_tracks }}</p> <button @click="playPlaylist()">Play</button>
+    <p>{{ data?.name }}, Artist: {{ data?.artists[0].name }}, track count: {{ data?.total_tracks }}</p> <button @click="playAlbum()">Play</button>
     <div v-for="item in data?.tracks.items">
         <p>{{ item.name }} Artist: 
             <span v-if="item.artists.length === 1">{{ item.artists[0].name }}</span>
@@ -29,7 +29,7 @@ import type { SpotifyApi } from '~/types';
         }
     });
 
-    async function playPlaylist() {
+    async function playAlbum() {
         const { error } = await useFetch(`https://api.spotify.com/v1/me/player/play?${playerStore.deviceId}`, {
             method: "PUT",
             headers: {
