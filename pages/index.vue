@@ -21,8 +21,6 @@
 	useHead({
 		title: 'Andromeda - Home',
 	})
-	
-	const config = useRuntimeConfig();
 
 	const playerStore = useSpotifyStore();
 	const authStore = useAuthStore();
@@ -32,41 +30,6 @@
 
 	let track_window = computed(() => playerStore.currentTrack())
 	let queue = computed(() => playerStore.queue)
-	
-	if (accessToken != null) {
-		CreateSpotify(accessToken, config.public.clientName)
-			.then((spotPlayer) => {
-				playerStore.setPlayer(spotPlayer)
-			})
-			.catch((err) => {
-				console.error(err)
-			})
-	}
-
-	function insertNewToken() {
-		authStore.GetNewToken(config.public.clientId)
-		
-		CreateSpotify(authStore.accessToken as string, config.public.clientName)
-			.then((spotPlayer) => {
-				playerStore.setPlayer(spotPlayer)
-			})
-			.catch((err) => {
-				console.error(err)
-			})
-	}
-
-	onMounted(() => {
-		setInterval(() => {
-			if (new Date(authStore.expireDate).getTime() < Date.now() || authStore.expireDate == null) {
-				insertNewToken()
-			}
-		}, 1750000)
-	})
-	onBeforeMount(() => {
-		if (new Date(authStore.expireDate).getTime() < Date.now() || authStore.expireDate == null) {
-			authStore.GetNewToken(config.public.clientId)
-		}
-	})
 </script>
 
 <style></style>
