@@ -1,2 +1,2 @@
-export * as SpotifySDK from './SpotifyTypes';
-export * as SpotifyApi from '@spotify/web-api-ts-sdk';
+export * as SpotifySDK from './SpotifySDK';
+export * as SpotifyApi from './SpotifyApi';
