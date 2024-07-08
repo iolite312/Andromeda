@@ -12,9 +12,9 @@
 			<p>Next: {{ track_window?.next_tracks[0]?.name || 'No track playing' }}</p>
 			<img :src="track_window?.current_track?.album?.images[0]?.url" alt="Image of album" :height="track_window?.current_track?.album?.images[0]?.height || 0" :width="track_window?.current_track?.album?.images[0]?.width || 0">
 		</div>
-		<div>
-			<p v-for="item in queue.queue.slice(1)">{{ item?.name }}</p>
-		</div>
+		<!-- <div>
+			<p v-for="item in queue.queue">{{ item?.name }}</p>
+		</div> -->
 	</div>
 	<NuxtLink to="/playlists/1MbsT0FTMEt5mo8nTtirCU">Playlist</NuxtLink>
 	<NuxtLink to="/album/5zo18Ed9XHmSynrLP9wjyb">Album</NuxtLink>
