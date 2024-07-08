@@ -17,11 +17,11 @@ import type { SpotifyApi } from '~/types';
 
     const route = useRoute();
     const authStore = useAuthStore();
-    const albumId = route.params.id;
-    console.log(albumId);
+    const playlistId = route.params.id;
+    console.log(playlistId);
     
 
-    const { data } = await useFetch<SpotifyApi.SpotifyApi.Playlist>(`https://api.spotify.com/v1/playlists/${albumId}`, {
+    const { data } = await useFetch<SpotifyApi.SpotifyApi.Playlist>(`https://api.spotify.com/v1/playlists/${playlistId}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
