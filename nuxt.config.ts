@@ -5,12 +5,12 @@ export default defineNuxtConfig({
     app: {
 		head: {
 			title: 'Andromeda',
-			script: [
-				{
-					src: 'https://sdk.scdn.co/spotify-player.js',
-					async: true
-				}
-			]
+			// script: [
+			// 	{
+			// 		src: 'https://sdk.scdn.co/spotify-player.js',
+			// 		async: true
+			// 	}
+			// ]
 		},
 	},
 
