@@ -35,7 +35,7 @@ async function redirectToAuthCodeFlow(clientId: string) {
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("response_type", "code");
-    params.append("redirect_uri", `${config.public.url}/callback`); // Adjust to your callback URL
+    params.append("redirect_uri", `${config.public.url}`); // Adjust to your callback URL
     params.append("scope", "user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-currently-playing streaming app-remote-control playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-follow-modify user-follow-read user-read-playback-position user-top-read user-read-recently-played user-library-modify user-library-read ugc-image-upload");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
@@ -49,7 +49,7 @@ async function getAccessToken(clientId: string, code: string) {
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append("redirect_uri", `${config.public.url}/callback`); // Adjust to your callback URL
+    params.append("redirect_uri", `${config.public.url}`); // Adjust to your callback URL
     params.append("code_verifier", verifier!);
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
