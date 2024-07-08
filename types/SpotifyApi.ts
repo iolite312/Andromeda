@@ -39,7 +39,15 @@ export declare namespace SpotifyApi {
         type: "album"
         uri: string
         artists: Artist[]
-        tracks: Track[]
+        tracks: {
+            href: string
+            limit: number
+            next: string
+            offset: number
+            previous: string
+            total: number
+            items: Track[]
+        }
         copyrights: string[]
         external_ids: {
             upc: string
