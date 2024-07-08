@@ -18,8 +18,6 @@ import type { SpotifyApi } from '~/types';
                 'Authorization': `Bearer ${authStore.accessToken}`
             }
         });
-
-    console.log(data.value)
 </script>
 
 <style scoped>
