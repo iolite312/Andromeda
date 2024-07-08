@@ -15,6 +15,7 @@
 			<p v-for="item in queue.queue">{{ item?.name }}</p>
 		</div>
 	</div>
+	<NuxtLink to="/playlists/1MbsT0FTMEt5mo8nTtirCU">Playlists</NuxtLink>
 </template>
 
 <script setup lang="ts">
