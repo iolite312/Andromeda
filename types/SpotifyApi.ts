@@ -142,4 +142,8 @@ export declare namespace SpotifyApi {
         is_local: boolean
         track: Track
     }
+    interface Queue {
+        currently_playing: Track
+        queue: Track[]
+    }
 }

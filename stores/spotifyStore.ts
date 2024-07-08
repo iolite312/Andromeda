@@ -2,7 +2,7 @@ import type { SpotifySDK, SpotifyApi } from "~/types"
 export const useSpotifyStore = defineStore('spotify', () => {
     const playbackState = ref(<SpotifySDK.Spotify.PlaybackState>({}))
     const player = ref(<SpotifySDK.SpotifyPlayer>({}))
-    const queue = ref(<SpotifyApi.Queue>({}))
+    const queue = ref(<SpotifyApi.SpotifyApi.Queue>({}))
 
     const setPlaybackState = (state: SpotifySDK.Spotify.PlaybackState) => {
         playbackState.value = state
