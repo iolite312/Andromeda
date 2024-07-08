@@ -1,9 +1,9 @@
-import type { SpotifyPlayer } from "~/types";
+import type { SpotifySDK, SpotifyApi } from "~/types";
 
-export const CreateSpotify = (token: string, name: string): Promise<SpotifyPlayer> => {
+export const CreateSpotify = (token: string, name: string): Promise<SpotifySDK.SpotifyPlayer> => {
 
     const store = setStore();
-    
+
     return new Promise((resolve, reject) => {
         window.onSpotifyWebPlaybackSDKReady = () => {
             const player = new window.Spotify.Player({
@@ -11,7 +11,7 @@ export const CreateSpotify = (token: string, name: string): Promise<SpotifyPlaye
                 getOAuthToken: cb => { cb(token); },
                 volume: 1
             });
-        
+
             // Ready
             player.addListener('ready', async ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
@@ -26,34 +26,34 @@ export const CreateSpotify = (token: string, name: string): Promise<SpotifyPlaye
                         device_ids: [device_id],
                     }
                 });
-        
+
                 if (data == '') {
                     throw new Error('No player found');
                 }
-                
+
                 resolve(player);
             });
-        
+
             // Not Ready
             player.addListener('not_ready', ({ device_id }) => {
                 console.log('Device ID has gone offline', device_id);
             });
-        
+
             player.addListener('initialization_error', ({ message }) => {
                 console.error(message);
                 reject(message);
             });
-        
+
             player.addListener('authentication_error', ({ message }) => {
                 console.error(message);
                 reject(message);
             });
-        
+
             player.addListener('account_error', ({ message }) => {
                 console.error(message);
                 reject(message);
             });
-        
+
             player.connect().catch(message => {
                 console.error(message);
                 reject(message);
@@ -67,7 +67,7 @@ export const CreateSpotify = (token: string, name: string): Promise<SpotifyPlaye
     })
 }
 
-function setStore () {
+function setStore() {
     const store = useSpotifyStore();
     return store
 }

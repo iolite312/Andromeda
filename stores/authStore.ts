@@ -1,4 +1,4 @@
-import { type Spotify } from "~/types"
+import { type SpotifySDK } from "~/types"
 
 export const useAuthStore = defineStore('auth', () => {
     let accessToken = localStorage.getItem('accessToken')
@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('auth', () => {
             throw new Error("No refresh token found");
         }
     
-        const { data } = await useFetch<Spotify.Token>("https://accounts.spotify.com/api/token", {
+        const { data } = await useFetch<SpotifySDK.Spotify.Token>("https://accounts.spotify.com/api/token", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
