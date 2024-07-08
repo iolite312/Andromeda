@@ -71,3 +71,14 @@ function setStore() {
     const store = useSpotifyStore();
     return store
 }
+export const getQueue = async (token: string): Promise<SpotifyApi.Queue> => {
+    const queue = await $fetch<SpotifyApi.Queue>('https://api.spotify.com/v1/me/player/queue', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    
+    return queue
+}

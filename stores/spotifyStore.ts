@@ -13,6 +13,24 @@ export const useSpotifyStore = defineStore('spotify', () => {
     const setPlayer = (state: SpotifySDK.SpotifyPlayer) => {
         player.value = state
     }
+    const setQueue = () => {
+        const authStore = useAuthStore()
+        getQueue(authStore.accessToken as string)
+            .then((result) => {
+                queue.value = result
+            })
+    }
+    const nextTrack = () => {
+        player.value.nextTrack()
+        setQueue()
+    }
+    const previousTrack = () => {
+        player.value.previousTrack()
+        setQueue()
+    }
+    const pausePlayer = () => {
+        player.value.togglePlay()
+    }
 
-    return { playbackState, setPlaybackState, currentTrack, setPlayer, player }
+    return { player, playbackState, queue, setPlaybackState, currentTrack, setPlayer, setQueue, nextTrack, previousTrack, pausePlayer }
 })

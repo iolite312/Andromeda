@@ -11,11 +11,13 @@
 			<p>Previous: {{ track_window?.previous_tracks[track_window?.previous_tracks.length - 1]?.name || 'No track playing' }}</p>
 			<img :src="track_window?.current_track?.album?.images[0]?.url" alt="Image of album" :height="track_window?.current_track?.album?.images[0]?.height || 0" :width="track_window?.current_track?.album?.images[0]?.width || 0">
 		</div>
+		<div>
+			<p v-for="item in queue.queue">{{ item?.name }}</p>
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-
 	useHead({
 		title: 'Andromeda - Home',
 	})
@@ -29,9 +31,10 @@
 	let refreshToken = authStore.refreshToken
 
 	let track_window = computed(() => playerStore.currentTrack())
+	let queue = computed(() => playerStore.queue)
 	
 	if (accessToken != null) {
-		CreateSpotify(accessToken as string, config.public.clientName)
+		CreateSpotify(accessToken, config.public.clientName)
 			.then((spotPlayer) => {
 				playerStore.setPlayer(spotPlayer)
 			})
@@ -51,6 +54,7 @@
 				console.error(err)
 			})
 	}
+
 	onMounted(() => {
 		setInterval(() => {
 			if (new Date(authStore.expireDate).getTime() < Date.now() || authStore.expireDate == null) {
