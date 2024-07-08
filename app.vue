@@ -3,9 +3,9 @@
 		<Auth />
 	</div>
 	<div v-else>
-		<button @click="() => player.togglePlay()">Toggle play</button>
-		<button @click="() => player.previousTrack()">Previous</button>
-		<button @click="() => player.nextTrack()">Next</button>
+		<button @click="playerStore.pausePlayer()">Toggle play</button>
+		<button @click="playerStore.previousTrack()">Previous</button>
+		<button @click="playerStore.nextTrack()">Next</button>
 		<div>
 			<p>Current: {{ track_window?.current_track?.name || 'No track playing' }}</p>
 			<p>Previous: {{ track_window?.previous_tracks[track_window?.previous_tracks.length - 1]?.name || 'No track playing' }}</p>
@@ -27,8 +27,6 @@
 
 	let accessToken = authStore.accessToken
 	let refreshToken = authStore.refreshToken
-
-	let player = computed(() => playerStore.player);
 
 	let track_window = computed(() => playerStore.currentTrack())
 	
