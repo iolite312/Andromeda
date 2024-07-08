@@ -3,6 +3,7 @@ import { type Spotify } from "~/types"
 export const useAuthStore = defineStore('auth', () => {
     let accessToken = localStorage.getItem('accessToken')
     let refreshToken = localStorage.getItem('refreshToken')
+    let expireDate = localStorage.getItem('expireDate') as string
 
     const GetNewToken = async (client_id: string) => {
         if (refreshToken == null) {
@@ -29,7 +30,8 @@ export const useAuthStore = defineStore('auth', () => {
         refreshToken = data.value.refresh_token
         localStorage.setItem('accessToken', accessToken)
         localStorage.setItem('refreshToken', refreshToken)
+        localStorage.setItem('expireDate', new Date(Date.now() + data.value.expires_in * 1000).toString())
     }
 
-    return { accessToken, refreshToken, GetNewToken }
+    return { accessToken, refreshToken, expireDate, GetNewToken }
 })

@@ -59,6 +59,11 @@
 				console.error(err)
 			})
 	}
+	onBeforeMount(() => {
+		if (new Date(authStore.expireDate).getTime() < Date.now() || authStore.expireDate == null) {
+			authStore.GetNewToken(config.public.clientId)
+		}
+	})
 </script>
 
 <style></style>
