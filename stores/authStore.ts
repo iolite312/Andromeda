@@ -28,7 +28,7 @@ export const useAuthStore = defineStore('auth', () => {
     
         accessToken.value = data.access_token
         refreshToken.value = data.refresh_token
-        expireDate.value = new Date(Date.now() + 20 * 1000).toString()
+        expireDate.value = new Date(Date.now() + data.expires_in * 1000).toString()
         console.log(expireDate);
         
         localStorage.setItem('accessToken', accessToken.value)
