@@ -5,14 +5,14 @@
 <script setup lang="ts">
 	const playerStore = useSpotifyStore();
 	const authStore = useAuthStore();
-    const config = useRuntimeConfig();
+	const config = useRuntimeConfig();
 
 	// temp solution until i find the correct way to fix this
 	const script = document.createElement('script');
 	script.src = 'https://sdk.scdn.co/spotify-player.js';
 	script.async = true;
-    document.body.appendChild(script);
-    // end of temp solution
+	document.body.appendChild(script);
+	// end of temp solution
 
 	let accessToken = computed(() => authStore.accessToken)
 	let expireDate = computed(() => authStore.expireDate)
@@ -21,6 +21,7 @@
 		CreateSpotify(accessToken.value, config.public.clientName)
 			.then((spotPlayer) => {
 				playerStore.setPlayer(spotPlayer)
+				playerStore.setQueue()
 			})
 			.catch((err) => {
 				console.error(err)
