@@ -3,6 +3,7 @@ export const useSpotifyStore = defineStore('spotify', () => {
     const playbackState = ref(<SpotifySDK.Spotify.PlaybackState>({}))
     const player = ref(<SpotifySDK.SpotifyPlayer>({}))
     const queue = ref(<SpotifyApi.SpotifyApi.Queue>({}))
+    const deviceId = ref("")
 
     const setPlaybackState = (state: SpotifySDK.Spotify.PlaybackState) => {
         playbackState.value = state
@@ -32,5 +33,5 @@ export const useSpotifyStore = defineStore('spotify', () => {
         player.value.togglePlay()
     }
 
-    return { player, playbackState, queue, setPlaybackState, currentTrack, setPlayer, setQueue, nextTrack, previousTrack, pausePlayer }
+    return { player, playbackState, queue, deviceId, setPlaybackState, currentTrack, setPlayer, setQueue, nextTrack, previousTrack, pausePlayer }
 })
