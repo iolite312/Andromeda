@@ -32,6 +32,7 @@ export const CreateSpotify = (token: string, name: string): Promise<SpotifySDK.S
                 }
 
                 resolve(player);
+                store.deviceId = device_id
             });
 
             // Not Ready
