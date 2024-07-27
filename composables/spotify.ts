@@ -16,20 +16,20 @@ export const CreateSpotify = (token: string, name: string): Promise<SpotifySDK.S
             player.addListener('ready', async ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
 
-                const data = await $fetch('https://api.spotify.com/v1/me/player', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: {
-                        device_ids: [device_id],
-                    }
-                });
+                // const data = await $fetch('https://api.spotify.com/v1/me/player', {
+                //     method: 'PUT',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         'Authorization': `Bearer ${token}`
+                //     },
+                //     body: {
+                //         device_ids: [device_id],
+                //     }
+                // });
 
-                if (data == '') {
-                    throw new Error('No player found');
-                }
+                // if (data == '') {
+                //     throw new Error('No player found');
+                // }
 
                 resolve(player);
                 store.deviceId = device_id
