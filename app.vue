@@ -1,5 +1,7 @@
 <template>
-	<nuxtPage />
+	<NuxtLayout>
+		<nuxtPage/>
+	</NuxtLayout>
 </template>
 
 <script setup lang="ts">
@@ -54,4 +56,6 @@
 	})
 </script>
 
-<style></style>
+<style>
+	@import url(~/assets/css/satoshi.css);
+</style>
