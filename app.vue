@@ -3,7 +3,7 @@
 		<nuxtPage/>
 	</NuxtLayout>
 </template>
-<!-- comment -->
+
 <script setup lang="ts">
 	const playerStore = useSpotifyStore();
 	const authStore = useAuthStore();
