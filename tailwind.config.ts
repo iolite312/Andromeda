@@ -25,6 +25,9 @@ export default <Partial<Config>>{
                         }
                     }
                 }
+            },
+            fontFamily: {
+                satoshi: ['Satoshi-Variable', 'sans-serif']
             }
         }
     }

@@ -11,6 +11,9 @@ export default defineNuxtConfig({
 			// 		async: true
 			// 	}
 			// ]
+			link: [
+				{ rel: 'stylesheet', href: '/css/satoshi.css'}
+			]
 		},
 	},
 
