@@ -56,6 +56,4 @@
 	})
 </script>
 
-<style>
-	@import url(~/assets/css/satoshi.css);
-</style>
+<style></style>
