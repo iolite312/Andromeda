@@ -36,4 +36,7 @@
     .router-link-active:not(.library) {
         @apply bg-spotify-bg-secondary rounded-md;
     }
+    .router-link-active {
+        @apply text-spotify-fg-primary;
+    }
 </style>
