@@ -1,11 +1,12 @@
 <template>
-    <img :src="`/icons/${imageName}${ fill }.svg`" alt="" @click="filled === false ? fill = '-Filled' : fill = ''">
+    <img :src="`/icons/${imageName}${ fill }.svg`" alt="" />
 </template>
 
 <script setup lang="ts">
-    let fill = ref('')
-    defineProps({
+    const props =defineProps({
         imageName: String,
         filled : Boolean
     })
+
+    const fill = computed(() => (props.filled ? '-Filled' : ''))
 </script>
