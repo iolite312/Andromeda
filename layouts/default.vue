@@ -1,5 +1,5 @@
 <template>
-    <div class="flex bg-spotify-bg-main w-screen h-screen text-spotify-fg-secondary font-satoshi text-xl p-2">
+    <div class="bg-spotify-bg-main w-screen h-screen text-spotify-fg-secondary font-satoshi text-xl p-2">
         <Navbar />
         <div class="flex">
             <Sidebar />
