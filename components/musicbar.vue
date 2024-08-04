@@ -21,6 +21,7 @@
                 <Icon imageName="Loop-1" :filled="true" v-else/>
             </button>
             <Progressbar :min="0" :max="duration" :current="position" :step="1000"/>
+            <MusicWidget/>
         </div>
     </section>
 </template>
