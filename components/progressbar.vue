@@ -71,6 +71,12 @@
             setCSSProperty();
         }
     });
+    watch(() => state.value.track_window?.current_track, () => {
+        if (!state.value.paused) {
+            value.value = state.value.position;
+            setCSSProperty();
+        }
+    });
 
     setCSSProperty();
 
