@@ -2,6 +2,7 @@
 	<NuxtLayout>
 		<nuxtPage/>
 	</NuxtLayout>
+	<button @click="insertNewToken()">Refresh</button>
 </template>
 
 <script setup lang="ts">
@@ -17,7 +18,6 @@
 	// end of temp solution
 
 	let accessToken = computed(() => authStore.accessToken)
-	let expireDate = computed(() => authStore.expireDate)
 
 	if (accessToken.value != null) {
 		CreateSpotify(accessToken.value, config.public.clientName)
@@ -44,13 +44,14 @@
 
 	onMounted(() => {
 		setInterval(() => {
-			if (new Date(expireDate.value).getTime() < Date.now() || expireDate.value == null) {				
+			if (new Date(localStorage.getItem('expireDate') as string).getTime() < Date.now() || localStorage.getItem('expireDate') == null) {				
 				insertNewToken()
-			}
-		}, 1750000)
+				console.log('refreshed token');
+			}			
+		}, 6000)
 	})
 	onBeforeMount(() => {
-		if (new Date(expireDate.value).getTime() < Date.now() || expireDate.value == null) {
+		if (new Date(localStorage.getItem('expireDate') as string).getTime() < Date.now() || localStorage.getItem('expireDate') == null) {
 			authStore.GetNewToken(config.public.clientId)
 		}
 	})
