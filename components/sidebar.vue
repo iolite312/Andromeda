@@ -1,5 +1,5 @@
 <template>
-    <div class="py-3 pl-3 w-64 rounded-b-xl" :class="route.path === '/my-library' ? 'bg-spotify-bg-primary' : ''">
+    <div class="py-3 pl-3 max-w-64 w-full rounded-b-xl" :class="route.path === '/my-library' ? 'bg-spotify-bg-primary' : ''">
         <SidebarItem imageName="Like" :filled="false" link="/liked-songs" text="Liked songs"/>
         <SidebarItem imageName="Save" :filled="false" link="/saved" text="Saves"/>
         <SidebarItem imageName="Album" :filled="false" link="/saved-albums" text="Albums"/>

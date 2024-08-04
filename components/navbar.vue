@@ -1,19 +1,19 @@
 <template>
     <nav class="flex justify-between">
-        <div class="flex">
-            <NuxtLink to="/my-library" class="flex items-center gap-2 py-3 pl-3 w-64 rounded-t-xl library" :class="route.path === '/my-library' ? 'bg-spotify-bg-primary' : ''">
+        <div class="flex w-full">
+            <NuxtLink to="/my-library" class="flex items-center gap-2 py-3 pl-3 max-w-64 w-full rounded-t-xl library" :class="route.path === '/my-library' ? 'bg-spotify-bg-primary' : ''">
                 <Icon imageName="Library" :filled="isActive('/my-library').value" />
                 <p>My Library</p>
             </NuxtLink>
-            <NuxtLink to="/" class="flex items-center gap-2 py-3 pl-3 w-64">
+            <NuxtLink to="/" class="flex items-center gap-2 py-3 pl-3 ml-2 max-w-64 w-full">
                 <Icon imageName="Home" :filled="isActive('/').value" />
                 <p>Home</p>
             </NuxtLink>
-            <NuxtLink to="/discover" class="flex items-center gap-2 py-3 pl-3 w-64">
+            <NuxtLink to="/discover" class="flex items-center gap-2 py-3 pl-3 max-w-64 w-full">
                 <Icon imageName="Discover" :filled="isActive('/discover').value" />
                 <p>Discover</p>
             </NuxtLink>
-            <NuxtLink to="/search" class="flex items-center gap-2 py-3 pl-3 w-64">
+            <NuxtLink to="/search" class="flex items-center gap-2 py-3 pl-3 max-w-64 w-full">
                 <Icon imageName="Search" :filled="isActive('/search').value" />
                 <p>Search</p>
             </NuxtLink>
