@@ -2,7 +2,6 @@
 	<NuxtLayout>
 		<nuxtPage/>
 	</NuxtLayout>
-	<button @click="insertNewToken()">Refresh</button>
 </template>
 
 <script setup lang="ts">
