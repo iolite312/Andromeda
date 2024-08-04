@@ -3,7 +3,7 @@
         <Navbar class="col-span-2"/>
         <div class="flex col-span-2">
             <Sidebar />
-            <div class="ml-2">
+            <div class="ml-2 mt-2 w-full border rounded-xl border-spotify-bg-secondary p-6 overflow-auto">
                 <slot />
             </div>
         </div>
