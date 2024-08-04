@@ -83,3 +83,56 @@ export const getQueue = async (token: string): Promise<SpotifyApi.SpotifyApi.Que
     
     return queue
 }
+export const setShuffle = async (token: string, shuffleState : boolean, deviceId: string): Promise<void> => {
+    const data = await $fetch(`https://api.spotify.com/v1/me/player/shuffle?state=${!shuffleState}&device_id=${deviceId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (data == '') {
+        throw new Error('Something went wrong');
+    }
+}
+export const setPosition = async (token: string, position : number, deviceId: string): Promise<void> => {
+    const data = await $fetch(`https://api.spotify.com/v1/me/player/seek?position_ms=${position}&device_id=${deviceId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (data == '') {
+        throw new Error('Something went wrong');
+    }
+}
+export const setRepeat = async (token: string, repeatState : number, deviceId: string): Promise<void> => {
+    let repeat_mode = "";
+
+    switch (repeatState) {
+        case 0:
+            repeat_mode = "context";
+            break;
+        case 1:
+            repeat_mode = "track";
+            break;
+        case 2:
+            repeat_mode = "off";
+            break;
+    }
+
+    const data = await $fetch(`https://api.spotify.com/v1/me/player/repeat?state=${repeat_mode}&device_id=${deviceId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (data == '') {
+        throw new Error('Something went wrong');
+    }
+}

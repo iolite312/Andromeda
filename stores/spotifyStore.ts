@@ -32,6 +32,14 @@ export const useSpotifyStore = defineStore('spotify', () => {
     const pausePlayer = () => {
         player.value.togglePlay()
     }
+    const toggleShuffle = () => {
+        const authStore = useAuthStore()
+        setShuffle(authStore.accessToken as string, playbackState.value.shuffle, deviceId.value)
+    }
+    const toggleRepeatMode = () => {
+        const authStore = useAuthStore()
+        setRepeat(authStore.accessToken as string, playbackState.value.repeat_mode, deviceId.value)
+    }
 
-    return { player, playbackState, queue, deviceId, setPlaybackState, currentTrack, setPlayer, setQueue, nextTrack, previousTrack, pausePlayer }
+    return { player, playbackState, queue, deviceId, setPlaybackState, currentTrack, setPlayer, setQueue, nextTrack, previousTrack, pausePlayer, toggleShuffle, toggleRepeatMode }
 })
