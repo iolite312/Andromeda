@@ -136,3 +136,29 @@ export const setRepeat = async (token: string, repeatState : number, deviceId: s
         throw new Error('Something went wrong');
     }
 }
+export const getPlayingListname = async (token: string, id: string): Promise<SpotifyApi.SpotifyApi.Playlist | SpotifyApi.SpotifyApi.Album | SpotifyApi.SpotifyApi.Artist> => {
+    let url;
+    if (id.includes('playlist')) {
+        id = id.replace('spotify:playlist:', '')
+        url = `https://api.spotify.com/v1/playlists/${id}`
+    } else if (id.includes('album')) {
+        id = id.replace('spotify:album:', '')
+        url = `https://api.spotify.com/v1/albums/${id}`
+    } else if (id.includes('artist')) {
+        id = id.replace('spotify:artist:', '')
+        url = `https://api.spotify.com/v1/artists/${id}`
+    }
+    const data = await $fetch<SpotifyApi.SpotifyApi.Playlist | SpotifyApi.SpotifyApi.Album | SpotifyApi.SpotifyApi.Artist>(`${url}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (data == null) {
+        throw new Error('Something went wrong');
+    }    
+
+    return data
+}
