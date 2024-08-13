@@ -146,4 +146,38 @@ export declare namespace SpotifyApi {
         currently_playing: Track
         queue: Track[]
     }
+    interface PlaylistRequest extends Playlist {
+        href: string
+        limit: number
+        next: string
+        offset: number
+        previous: string
+        total: number
+        items: Playlist[]
+    }
+    interface AlbumRequest extends Album {
+        href: string
+        limit: number
+        next: string
+        offset: number
+        previous: string
+        total: number
+        items: [{
+            added_at: string
+            album: Album
+        }]
+    }
+    interface ArtistRequest extends Artist {
+        artists: {
+            href: string
+            limit: number
+            next: string
+            cursors: {
+                after: string
+                before: string
+            }
+            total: number
+            items: Artist[]
+        }
+    }
 }
