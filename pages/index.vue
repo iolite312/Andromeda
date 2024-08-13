@@ -7,12 +7,7 @@
 			<p>Previous: {{ track_window?.previous_tracks[track_window?.previous_tracks.length - 1]?.name || 'No track playing' }}</p>
 			<p>Next: {{ track_window?.next_tracks[0]?.name || 'No track playing' }}</p>
 		</div>
-		<!-- <div>
-			<p v-for="item in queue.queue">{{ item?.name }}</p>
-		</div> -->
 	</div>
-	<NuxtLink to="/playlists/1MbsT0FTMEt5mo8nTtirCU">Playlist</NuxtLink>
-	<NuxtLink to="/album/5zo18Ed9XHmSynrLP9wjyb">Album</NuxtLink>
 </template>
 
 <script setup lang="ts">
