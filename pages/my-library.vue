@@ -35,7 +35,6 @@
             'Authorization': `Bearer ${useAuthStore().accessToken}`
         }
     })
-    console.log(artists.value)
 </script>
 
 <style scoped>
