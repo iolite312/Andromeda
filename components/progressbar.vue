@@ -25,7 +25,7 @@
         },
         current: {
             type: Number,
-            default: 60,
+            default: 0,
         },
     });
 
@@ -81,7 +81,7 @@
     setCSSProperty();
 
     setInterval(function () {
-        if (!state.value.paused) {
+        if (!state.value.paused && state.value.paused != undefined) {
             value.value += 100;
             setCSSProperty();
         }
