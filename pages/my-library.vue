@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row flex-wrap gap-x-3 gap-y-5">
+    <div class="flex flex-row flex-wrap justify-center gap-x-3 gap-y-5">
         <div  v-for="item in playlists?.items">
             <PlaylistPreview :playlist="item" />
         </div>
