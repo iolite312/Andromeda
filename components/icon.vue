@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-    const props =defineProps({
+    const props = defineProps({
         imageName: String,
         filled : Boolean
     })
